@@ -1,3 +1,5 @@
+This is a fork of [C3](https://github.com/StanfordHCI/c3) that makes it possible to use the library as a ES6 module (eg. so you can use `import { load } from "c3-module"`).
+
 # C3
 
 **C3** (Categorical Color Components) is a JavaScript library for
