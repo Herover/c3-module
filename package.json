@@ -1,5 +1,5 @@
 {
-  "name": "c3",
+  "name": "c3-module",
   "version": "1.0.0",
   "description": "A JavaScript library for color name modeling.",
   "keywords": [
@@ -19,8 +19,10 @@
     "type": "git",
     "url": "http://github.com/StanfordHCI/c3.git"
   },
-  "main": "c3.js",
+  "main": "src/c3/load.js",
   "dependencies": {
-    "uglify-js": "1.1.1"
-  }
+    "d3-array": "^3.2.1",
+    "d3-color": "^3.1.0"
+  },
+  "type": "module"
 }

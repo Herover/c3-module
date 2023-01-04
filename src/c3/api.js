@@ -1,4 +1,7 @@
-function c3_api() {
+import { lab } from "d3-color";
+import { range } from "d3-array";
+
+export function c3_api(c3) {
   var C = c3.color.length,
       W = c3.terms.length,
       T = c3.T,
@@ -137,12 +140,14 @@ function c3_api() {
   }
 
   // compute representative colors
-  c3.terms.center = d3.range(W).map(function(w) {
+  c3.terms.center = range(W).map(function(w) {
     var list = c3.terms.relatedColors(w, 5)
                  .map(function(d) { return c3.color[d.index]; });
 	var L = 0, a = 0, b = 0, N = list.length;
 	list.forEach(function(c) { L += c.L; a += c.a; b += c.b; });
-	return d3.lab(Math.round(L/N), Math.round(a/N), Math.round(b/N));
+	return lab(Math.round(L/N), Math.round(a/N), Math.round(b/N));
   });
+
+  return c3;
 }
 
