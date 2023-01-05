@@ -1,5 +1,3 @@
-This is a fork of [C3](https://github.com/StanfordHCI/c3) that makes it possible to use the library as a ES6 module (eg. so you can use `import { load } from "c3-module"`).
-
 # C3
 
 **C3** (Categorical Color Components) is a JavaScript library for
@@ -11,40 +9,32 @@ C3 also includes backend components (written in Java) for processing
 raw color naming data and producing a compact model of color naming.
 The resulting JSON model file is loaded by the client C3 library.
 
-### Browser Support
+This is a fork of [C3](https://github.com/StanfordHCI/c3) that makes it possible to use the library as a ES6 module (eg. so you can use `import { load } from "c3-module"`).
 
-C3 should work on any browser. However, the included example applications
-require a modern browser that supports [SVG](http://www.w3.org/TR/SVG/)
-and the Canvas tag. The examples should work on Firefox, Chrome (Chromium),
-Safari (WebKit), Opera and IE9.
+It can be installed by running `npm i c3-module`.
 
-Note: Chrome has strict permissions for reading files out of the local file
-system. Some examples use AJAX which works differently via HTTP instead of local
-files. For the best experience, load the C3 examples from your own machine via
-HTTP. Any static file web server will work; for example you can run Python's
-built-in server:
+Example usage:
 
-    python -m SimpleHTTPServer 8888
+```javascript
+import { load } from 'c3-module';
+import chroma from 'chroma-js';
 
-Once this is running, go to: <http://localhost:8888/examples/>
+// This module has been changed such that the JSON data is embedded into the
+// library, therefore you no longer have to specify a url to the json file
+const c3 = load();
+// You can use the c3 object as shown in the examples now.
+// Example: find and print 3 red colors
+const printColor = c => console.log(`rgb(${c.r}, ${c.g}, ${c.b})`);
+const redIndex = c3.terms.findIndex(e => e == "red");
+const colorIndexes = c3.terms.relatedColors(redIndex, 3);
+colorIndexes.forEach(ci => printColor(c3.color[ci.index].argb));
+// rgb(220, 0, 15)
+// rgb(198, 0, 0)
+// rgb(198, 0, 14)
+```
 
 ### Development Setup
 
-This repository should work out of the box if you just want to create
-applications using C3. On the other hand, if you want to extend C3 with new
-features, fix bugs, or run tests, you'll need to install a few more things.
-
-C3 uses UglifyJS to minimize the resulting JS file. UglifyJS depends on
-[Node.js](http://nodejs.org/) and [NPM](http://npmjs.org/). If you are
-developing on Mac OS X, an easy way to install Node and NPM is using
-[Homebrew](http://mxcl.github.com/homebrew/):
-
-    brew install node
-    brew install npm
-
-Next, from the root directory of this repository, install C3's dependencies:
-
-    make install
-
-You can see the list of dependencies in package.json. NPM will install the
-packages in the node_modules directory.
+The easiest way to work with the library is to have a local project that
+includes this project as a local dependency, eg. by running
+`npm i /path/to/c3-module` and then use it as in the example.

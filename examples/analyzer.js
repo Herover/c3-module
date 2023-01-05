@@ -149,5 +149,6 @@ function color(x) {
       h = (c3.color.entropy(c) - minE) / (maxE - minE),
       t = c3.color.relatedTerms(c, 1);
   var z = d3.lab(x); z = ~~(z.L)+", "+~~(z.a)+", "+~~(z.b);
+  console.log(x,c)
   return {"x":x, "c":c, "h":h, terms:t, "z": z};
 }
