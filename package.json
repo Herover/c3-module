@@ -25,5 +25,12 @@
     "d3-array": "^3.2.1",
     "d3-color": "^3.1.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "tsup": "^6.5.0"
+  },
+  "tsup": {
+    "noExternal": ["d3-array", "d3-color"],
+    "format": "esm"
+  }
 }

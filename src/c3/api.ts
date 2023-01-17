@@ -93,13 +93,15 @@ export function c3_api(c3) {
     return Math.sqrt(1 - bc / z);
   }
 
-  c3.terms.relatedTerms = function(w, limit) {
-    var sum = 0, c = c3.terms.center[w], list = [];
-    for (var i=0; i<W; ++i) {
+  c3.terms.relatedTerms = function(w: number, limit: number) {
+    let sum = 0,
+      c = c3.terms.center[w],
+      list: { index: number; score: any; }[] = [];
+    for (let i=0; i<W; ++i) {
       if (i != w) list.push({index: i, score: A[i*W+w]});
     }
     list.sort(function(a, b) {
-	  var ca, cb, dL1, dL2, da1, da2, db1, db2,
+	  let ca, cb, dL1, dL2, da1, da2, db1, db2,
           cmp = b.score - a.score;
       if (Math.abs(cmp) < 0.00005) {
         // break near ties by distance between centers
@@ -114,7 +116,7 @@ export function c3_api(c3) {
   }
 
   c3.terms.relatedColors = function(w, limit) {
-    var list = [];
+    var list: { index: number; score: number; }[] = [];
     for (var c=0; c<C; ++c) {
       var s = (T[c*W+w] || 0) / ccount[c];
       if (s > 0) list.push({index: c, score: s});
@@ -124,7 +126,11 @@ export function c3_api(c3) {
   }
 
   c3.color.relatedTerms = function(c, limit, minCount) {
-    var cc = c*W, list = [], sum = 0, s, cnt = c3.terms.count;
+    let cc = c*W,
+      list: { index: number; score: any; }[] = [],
+      sum = 0,
+      s,
+      cnt = c3.terms.count;
     for (var w=0; w<W; ++w) {
       if ((s = T[cc+w]) !== undefined) {
         list.push({index: w, score: s});
