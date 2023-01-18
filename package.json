@@ -30,7 +30,11 @@
     "tsup": "^6.5.0"
   },
   "tsup": {
-    "noExternal": ["d3-array", "d3-color"],
-    "format": "esm"
+    "noExternal": [
+      "d3-array",
+      "d3-color"
+    ],
+    "format": "esm",
+    "sourcemap": true
   }
 }
