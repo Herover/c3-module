@@ -1,10 +1,10 @@
-import { lab } from "chroma-js";
+import chroma from "chroma-js";
 import * as json from "../../data/xkcd/c3_data.json";
 
 // parse colors
-export const color: {l: number, a: number, b: number, opacity?: number}[] = [];
+export const color: chroma[] = [];
 for (let i=0; i<json.color.length; i+=3) {
-  color[i/3] = lab(json.color[i], json.color[i+1], json.color[i+2]);
+  color[i/3] = chroma.lab(json.color[i], json.color[i+1], json.color[i+2]);
 }
 const C = color.length;
 

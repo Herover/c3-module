@@ -7,15 +7,15 @@ const C = color.length,
   ccount = colorCount,
   tcount = termsCount;
 
-export const count = function(c, w) {
+export const count = function(c: number, w: number): number {
   return T[c*W+w] || 0;
 }
 
-export const termsProb = function(w, c) {
+export const termsProb = function(w: number, c: number): number {
   return (T[c*W+w]||0) / tcount[w];
 }
 
-export const termsEntropy = function(w) {
+export const termsEntropy = function(w: number): number {
   var H = 0, p;
   for (var c=0; c<C; ++c) {
     p = (T[c*W+w]||0) / tcount[w];
@@ -24,12 +24,12 @@ export const termsEntropy = function(w) {
   return H;
 }
 
-export const termsPerplexity = function(w) {
+export const termsPerplexity = function(w: number): number {
   var H = termsEntropy(w);
   return Math.pow(2, -H);
 }
 
-export const termsCosine = function(a, b) {
+export const termsCosine = function(a: number, b: number): number {
   var sa=0, sb=0, sc=0, ta, tb;
   for (var c=0; c<C; ++c) {
     ta = (T[c*W+a]||0);
@@ -41,11 +41,11 @@ export const termsCosine = function(a, b) {
   return sc / (Math.sqrt(sa*sb));
 }
 
-export const colorProb = function(c, w) {
+export const colorProb = function(c: number, w: number): number {
   return (T[c*W+w]||0) / ccount[c];
 }
 
-export const colorEntropy = function(c) {
+export const colorEntropy = function(c: number): number {
   var H = 0, p;
   for (var w=0; w<W; ++w) {
     p = (T[c*W+w]||0) / ccount[c];
@@ -54,7 +54,7 @@ export const colorEntropy = function(c) {
   return H;
 }
 
-export const termsHellinger = function(a, b) {
+export const termsHellinger = function(a: number, b: number): number {
   var bc=0, pa, pb, z = Math.sqrt(tcount[a]*tcount[b]);
   for (var c=0; c<C; ++c) {
     pa = (T[c*W+a]||0);
@@ -64,12 +64,12 @@ export const termsHellinger = function(a, b) {
   return Math.sqrt(1 - bc / z);
 }
 
-export const colorPerplexity = function(c) {
+export const colorPerplexity = function(c: number): number {
   var H = colorEntropy(c);
   return Math.pow(2, -H);
 }
 
-export const colorCosine = function(a, b) {
+export const colorCosine = function(a: number, b: number): number {
   var sa=0, sb=0, sc=0, ta, tb;
   for (var w=0; w<W; ++w) {
     ta = (T[a*W+w]||0);
@@ -81,7 +81,7 @@ export const colorCosine = function(a, b) {
   return sc / (Math.sqrt(sa*sb));
 }
 
-export const colorHellinger = function(a, b) {
+export const colorHellinger = function(a: number, b: number): number {
   var bc=0, pa, pb, z = Math.sqrt(ccount[a]*ccount[b]);
   for (var w=0; w<W; ++w) {
     pa = (T[a*W+w]||0);
@@ -113,7 +113,7 @@ export const termsRelatedTerms = function(w: number, limit: number) {
   return limit ? list.slice(0,limit) : list;
 }
 
-export const termsRelatedColors = function(w, limit) {
+export const termsRelatedColors = function(w: number, limit: number) {
   var list: { index: number; score: number; }[] = [];
   for (var c=0; c<C; ++c) {
     var s = (T[c*W+w] || 0) / ccount[c];
@@ -123,7 +123,7 @@ export const termsRelatedColors = function(w, limit) {
   return limit ? list.slice(0,limit) : list;
 }
 
-export const colorRelatedTerms = function(c, limit, minCount) {
+export const colorRelatedTerms = function(c: number, limit: number, minCount: number) {
   let cc = c*W,
     list: { index: number; score: any; }[] = [],
     sum = 0,
@@ -148,7 +148,7 @@ export const termsCenter = range(W).map(function(w) {
   var list = termsRelatedColors(w, 5)
                 .map(function(d) { return color[d.index]; });
   var L = 0, a = 0, b = 0, N = list.length;
-  list.forEach(function(c) { L += c.l; a += c.a; b += c.b; });
+  list.forEach(function(c) { [L, a, b] = c.lab(); });
   return lab(Math.round(L/N), Math.round(a/N), Math.round(b/N));
 });
 
