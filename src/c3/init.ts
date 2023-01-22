@@ -1,4 +1,4 @@
-import { lab } from "d3-color";
+import { lab } from "chroma-js";
 import * as json from "../../data/xkcd/c3_data.json";
 
 // parse colors

@@ -1,4 +1,4 @@
-import { lab } from "d3-color";
+import { lab, deltaE } from "chroma-js";
 import { range } from "d3-array";
 import { A,T,color,colorCount,terms,termsCount } from "./init";
 
@@ -105,8 +105,7 @@ export const termsRelatedTerms = function(w: number, limit: number) {
       // break near ties by distance between centers
       ca = termsCenter[a.index];
       cb = termsCenter[b.index];
-      // FIXME: no longer available in d3-color
-      cmp = ca.de00(c) - cb.de00(c);
+      cmp = deltaE(ca, c) - deltaE(cb, c);
     }
     return cmp;
   });

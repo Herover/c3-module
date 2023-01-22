@@ -16,21 +16,23 @@ It can be installed by running `npm i c3-module`.
 Example usage:
 
 ```javascript
-import { load } from 'c3-module';
-import chroma from 'chroma-js';
+import * as c3 from 'c3-module';
 
-// This module has been changed such that the JSON data is embedded into the
-// library, therefore you no longer have to specify a url to the json file
-const c3 = load();
 // You can use the c3 object as shown in the examples now.
 // Example: find and print 3 red colors
-const printColor = c => console.log(`rgb(${c.r}, ${c.g}, ${c.b})`);
 const redIndex = c3.terms.findIndex(e => e == "red");
-const colorIndexes = c3.terms.relatedColors(redIndex, 3);
-colorIndexes.forEach(ci => printColor(c3.color[ci.index].argb));
+const colorIndexes = c3.termsRelatedColors(redIndex, 3);
+colorIndexes.forEach(ci => console.log(c3.color[ci.index].css("rgb"))); 
 // rgb(220, 0, 15)
 // rgb(198, 0, 0)
 // rgb(198, 0, 14)
+
+// Example: find and print 3 terms related to "red"
+const termIndexes = c3.termsRelatedTerms(redIndex, 3);
+termIndexes.forEach(ti => console.log(c3.terms[ti.index])) 
+// red
+// brightred
+// bloodred
 ```
 
 ### Development Setup
