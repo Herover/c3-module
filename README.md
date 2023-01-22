@@ -35,6 +35,20 @@ termIndexes.forEach(ti => console.log(c3.terms[ti.index]))
 // bloodred
 ```
 
+A difference between this fork and the original c3 library is how you access 
+data and functions. `c3.terms` and `c3.colors` are the same, but functions like
+`c3.terms.relatedColors` are now `c3.termsRelatedColors` to avoid overloading
+built in JavaScript.
+
+Another difference is that instead of keeping track of colors using `d3-colors`,
+this library use `chroma-js` which means you access color information as
+described in [their documentation](https://gka.github.io/chroma.js/).
+
+Finally, the full size of the compiled script is about 2 MB, primarely because
+the data file is now embedded into the script. This is done to make it easier
+to use the library without hosting the data, and avoids having to wait for the
+data to load during runtime.
+
 ### Development Setup
 
 The easiest way to work with the library is to have a local project that
