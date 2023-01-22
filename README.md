@@ -54,3 +54,14 @@ data to load during runtime.
 The easiest way to work with the library is to have a local project that
 includes this project as a local dependency, eg. by running
 `npm i /path/to/c3-module` and then use it as in the example.
+
+Compile using `npx tsup src/index.ts` or with type declarations
+`npx tsup src/index.ts --dts`.
+
+If the compiler complains about `Cannot find module ...`, try installing
+typescript globally and link it.
+
+```
+npm i typescript -g
+npm link typescript
+```
