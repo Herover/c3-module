@@ -2,4 +2,4 @@ examples/
 lib/
 .DS_Store
 java/
-data/xkcd/xkcd.csv.gz
+data/
